@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gk.mapper.area.CityMapper" >
+  <resultMap id="BaseResultMap" type="com.gk.model.area.City" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pinyinFull" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pinyinFullBlank" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pinyinShort" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fatherId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, pinyinFull, pinyinFullBlank, pinyinShort, fatherId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gk.model.area.CityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from area_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from area_city
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from area_city
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gk.model.area.CityExample" >
+    delete from area_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gk.model.area.City" >
+    insert into area_city (id, name, pinyinFull, 
+      pinyinFullBlank, pinyinShort, fatherId
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pinyinFull,jdbcType=VARCHAR}, 
+      #{pinyinFullBlank,jdbcType=VARCHAR}, #{pinyinShort,jdbcType=VARCHAR}, #{fatherId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gk.model.area.City" >
+    insert into area_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pinyinFull != null" >
+        pinyinFull,
+      </if>
+      <if test="pinyinFullBlank != null" >
+        pinyinFullBlank,
+      </if>
+      <if test="pinyinShort != null" >
+        pinyinShort,
+      </if>
+      <if test="fatherId != null" >
+        fatherId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinFull != null" >
+        #{pinyinFull,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinFullBlank != null" >
+        #{pinyinFullBlank,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinShort != null" >
+        #{pinyinShort,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null" >
+        #{fatherId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gk.model.area.CityExample" resultType="java.lang.Integer" >
+    select count(*) from area_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update area_city
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyinFull != null" >
+        pinyinFull = #{record.pinyinFull,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyinFullBlank != null" >
+        pinyinFullBlank = #{record.pinyinFullBlank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyinShort != null" >
+        pinyinShort = #{record.pinyinShort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatherId != null" >
+        fatherId = #{record.fatherId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update area_city
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pinyinFull = #{record.pinyinFull,jdbcType=VARCHAR},
+      pinyinFullBlank = #{record.pinyinFullBlank,jdbcType=VARCHAR},
+      pinyinShort = #{record.pinyinShort,jdbcType=VARCHAR},
+      fatherId = #{record.fatherId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gk.model.area.City" >
+    update area_city
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinFull != null" >
+        pinyinFull = #{pinyinFull,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinFullBlank != null" >
+        pinyinFullBlank = #{pinyinFullBlank,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinShort != null" >
+        pinyinShort = #{pinyinShort,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null" >
+        fatherId = #{fatherId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gk.model.area.City" >
+    update area_city
+    set name = #{name,jdbcType=VARCHAR},
+      pinyinFull = #{pinyinFull,jdbcType=VARCHAR},
+      pinyinFullBlank = #{pinyinFullBlank,jdbcType=VARCHAR},
+      pinyinShort = #{pinyinShort,jdbcType=VARCHAR},
+      fatherId = #{fatherId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
