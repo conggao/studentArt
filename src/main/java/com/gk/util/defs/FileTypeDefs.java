@@ -1,7 +1,5 @@
 package com.gk.util.defs;
 
-import com.gk.entity.file.FileType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +7,12 @@ import java.util.List;
 
 public class FileTypeDefs {
 
-    public static final Integer FILE_TYPE_IMAGE = 10;
-    public static final Integer FILE_TYPE_AUDIO = 11;
-    public static final Integer FILE_TYPE_VIDEO = 12;
-    public static final Integer FILE_TYPE_FLASH = 13;
-    public static final Integer FILE_TYPE_DOC = 20;
-    public static final Integer FILE_TYPE_UNKNOWN = 99;
+    private static final Integer FILE_TYPE_IMAGE = 10;
+    private static final Integer FILE_TYPE_AUDIO = 11;
+    private static final Integer FILE_TYPE_VIDEO = 12;
+    private static final Integer FILE_TYPE_FLASH = 13;
+    private static final Integer FILE_TYPE_DOC = 20;
+    private static final Integer FILE_TYPE_UNKNOWN = 99;
 
     public static List<FileType> listFileTypeInfo = new ArrayList<FileType>() {{
         add(new FileType(FILE_TYPE_IMAGE, "图片"));
@@ -61,4 +59,15 @@ public class FileTypeDefs {
             put("txt", FILE_TYPE_DOC);
         }
     };
+
+    private static class FileType {
+        Integer fileId;
+        String typeName;
+
+        FileType(Integer fileId, String typeName) {
+            this.fileId = fileId;
+            this.typeName = typeName;
+
+        }
+    }
 }
