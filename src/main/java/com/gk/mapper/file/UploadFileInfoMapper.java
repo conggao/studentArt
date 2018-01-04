@@ -2,12 +2,10 @@ package com.gk.mapper.file;
 
 import com.gk.model.file.UploadFileInfo;
 import com.gk.model.file.UploadFileInfoExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 @Mapper
 public interface UploadFileInfoMapper {
     int countByExample(UploadFileInfoExample example);
@@ -16,7 +14,7 @@ public interface UploadFileInfoMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UploadFileInfo record);
+    Long insert(UploadFileInfo record);
 
     int insertSelective(UploadFileInfo record);
 

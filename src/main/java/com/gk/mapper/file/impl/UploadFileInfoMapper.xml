@@ -84,7 +84,7 @@
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from upload_file_info
+    from file.upload_file_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,21 +95,24 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from upload_file_info
+    from file.upload_file_info
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from upload_file_info
+    delete from file.upload_file_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.gk.model.file.UploadFileInfoExample" >
-    delete from upload_file_info
+    delete from file.upload_file_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gk.model.file.UploadFileInfo" >
-    insert into upload_file_info (id, path, serverId, 
+  <insert id="insert" parameterType="com.gk.model.file.UploadFileInfo">
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into file.upload_file_info (id, path, serverId, 
       name, size, type, ext, 
       userId, playTime, time, 
       isdel)
@@ -119,11 +122,12 @@
       #{isdel,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.gk.model.file.UploadFileInfo" >
-    insert into upload_file_info
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into file.upload_file_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
+      id,
       <if test="path != null" >
         path,
       </if>
@@ -156,9 +160,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
+      #{id,jdbcType=BIGINT},
       <if test="path != null" >
         #{path,jdbcType=VARCHAR},
       </if>
@@ -192,13 +194,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gk.model.file.UploadFileInfoExample" resultType="java.lang.Integer" >
-    select count(*) from upload_file_info
+    select count(*) from file.upload_file_info
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update upload_file_info
+    update file.upload_file_info
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -239,7 +241,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update upload_file_info
+    update file.upload_file_info
     set id = #{record.id,jdbcType=BIGINT},
       path = #{record.path,jdbcType=VARCHAR},
       serverId = #{record.serverId,jdbcType=INTEGER},
@@ -256,7 +258,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.gk.model.file.UploadFileInfo" >
-    update upload_file_info
+    update file.upload_file_info
     <set >
       <if test="path != null" >
         path = #{path,jdbcType=VARCHAR},
@@ -292,7 +294,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gk.model.file.UploadFileInfo" >
-    update upload_file_info
+    update file.upload_file_info
     set path = #{path,jdbcType=VARCHAR},
       serverId = #{serverId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
